@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> Based on alignment modifier When alignment modifier equals \`center\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on alignment modifier When alignment modifier equals \`justify\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on alignment modifier When alignment modifier equals \`left\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on alignment modifier When alignment modifier equals \`right\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on size modifier When size modifier equals to \`large\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 2.5rem;
+  text-align: justify;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on size modifier When size modifier equals to \`medium\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;
+
+exports[`<Text /> Based on size modifier When size modifier equals to \`small\` should render properly 1`] = `
+.c0 {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+<p
+  class="c0"
+>
+  Sample Text
+</p>
+`;

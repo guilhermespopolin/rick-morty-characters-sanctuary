@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should render properly 1`] = `
+.c0 {
+  outline: none;
+  padding: 0.5rem 0.3rem;
+  border: none;
+  border: 1px solid #e6e9f3;
+  border-radius: 3px;
+  color: var(--darkGray);
+}
+
+.c0:focus {
+  border: 1px solid #0a30ad;
+}
+
+<input
+  class="c0"
+  placeholder="Enter some text"
+/>
+`;
