@@ -1,11 +1,11 @@
 {
-  "name": "futurama-quote-displayer",
+  "name": "rick-morty-episodes-sancturary",
   "version": "0.0.0-development",
   "author": "Guilherme Popolin",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/guilhermespopolin/futurama-quote-displayer"
+    "url": "https://github.com/guilhermespopolin/rick-morty-episodes-sancturary"
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --config config/webpack --env development",
