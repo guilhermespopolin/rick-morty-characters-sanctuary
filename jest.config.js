@@ -1,11 +1,5 @@
 module.exports = {
   verbose: true,
-  collectCoverageFrom: [
-    'src/**.{js,jsx}',
-    '!src/index.js',
-    '!src/components/App.jsx',
-    '!src/components/Routes.jsx',
-  ],
   coverageThreshold: {
     global: {
       branches: 80,
@@ -25,6 +19,10 @@ module.exports = {
     '\\.(css|less)$': 'identity-obj-proxy',
   },
   modulePaths: ['<rootDir>', '<rootDir>/src'],
-  modulePathIgnorePatterns: ['<rootDir>/src/helpers/tests.js'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/src/helpers/',
+    '<rootDir>/src/themes/',
+  ],
   setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
 }
