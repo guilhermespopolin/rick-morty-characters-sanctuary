@@ -1,6 +1,7 @@
 import { useReducer, useEffect } from 'react'
 
 const STATUS_OK = 200
+const STATUS_NOT_FOUND = 404
 const SET = 'SET'
 const LOADING = 'LOADING'
 const DONE = 'DONE'
@@ -23,9 +24,17 @@ async function getData(url, dispatch) {
     dispatch({ type: LOADING })
 
     const response = await fetch(url)
-    if (response.status === STATUS_OK) {
-      const jsonReponse = await response.json()
-      dispatch({ type: SET, payload: mapPayloadFromResponse(jsonReponse) })
+    const jsonReponse = await response.json()
+
+    switch (response.status) {
+      case STATUS_OK:
+        dispatch({ type: SET, payload: mapPayloadFromResponse(jsonReponse) })
+        break
+      case STATUS_NOT_FOUND:
+        dispatch({ type: ERROR, payload: 'No entry was founded with this search term' })
+        break
+      default:
+        break
     }
   } catch (err) {
     dispatch({ type: ERROR, payload: err })
