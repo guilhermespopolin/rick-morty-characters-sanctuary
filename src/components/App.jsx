@@ -8,17 +8,18 @@ import defaultTheme from 'themes/default'
 
 const GlobalStyle = createGlobalStyle`
   /* Fonts */
-  @import url('https://fonts.googleapis.com/css?family=Asap|Open+Sans');
-  @import url('https://fonts.googleapis.com/css?family=Oswald');
+  @import url('https://fonts.googleapis.com/css?family=Kalam|Oswald|Raleway&display=swap');
 
   * { box-sizing: border-box; }
 
+  html, body { height: 100%; }
+
   body {
     margin: 0;
-    font-family: Asap, sans-serif;
+    position: relative;
+    font-family: 'Raleway', sans-serif;
     color: ${({ theme }) => theme.colors.darkGray};
-    background-color: ${({ theme }) => theme.colors.lightGray};
-    height: 100vh;
+    background-color: ${({ theme }) => theme.colors.darkBlue};
   }
 
   h1,
