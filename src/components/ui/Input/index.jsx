@@ -5,14 +5,19 @@ import styled from 'styled-components'
 const errorModifier = ({ error, theme }) => {
   if (error) {
     return `
+      border-bottom: 2px solid ${theme.colors.error};
+
       &:focus, &:active {
-        border: 1px solid ${theme.colors.complement0};
+        border-bottom: 2px solid ${theme.colors.error};
       }
     `
   }
 
-  return ''
+  return null
 }
+const paddingModifier = ({ icon }) => (
+  icon ? 'padding: 0.5rem 2.5rem 0.5rem 0.3rem;' : 'padding: 0.5rem 0.3rem;'
+)
 
 const InputWrapper = styled.div`
   display: inline-flex;
@@ -22,16 +27,18 @@ const InputWrapper = styled.div`
 
 const StyledInput = styled.input`
   outline: none;
-  padding: 0.5rem 0.3rem;
   border: none;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
-  border-radius: 3px;
+  background-color: transparent;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.complement4};
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
   color: var(--darkGray);
 
   &:focus, &:active {
-    border: 1px solid ${({ theme }) => theme.colors.primary0};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.complement0}
   }
 
+  ${paddingModifier}
   ${errorModifier}
 `
 
@@ -39,24 +46,36 @@ const InputError = styled.span`
   display: inline-block;
   height: 15px;
   margin-top: 0.5rem;
-  color: ${({ theme }) => theme.colors.complement0};
+  color: ${({ theme }) => theme.colors.error};
 `
 
 function Input({
   className,
   value,
   onChange,
+  icon,
   error,
   ...others
 }) {
+  const basicInput = (
+    <StyledInput
+      value={value}
+      onChange={onChange}
+      icon={icon}
+      error={error}
+      {...others}
+    />
+  )
+  const input = icon ? (
+    <div style={{ position: 'relative' }}>
+      {basicInput}
+      {React.cloneElement(icon, { style: { position: 'absolute', right: 8, top: 'calc(50% - 12px)' } })}
+    </div>
+  ) : basicInput
+
   return (
     <InputWrapper className={className}>
-      <StyledInput
-        value={value}
-        onChange={onChange}
-        error={error}
-        {...others}
-      />
+      {input}
       <InputError>{error}</InputError>
     </InputWrapper>
   )
@@ -66,6 +85,7 @@ Input.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  icon: PropTypes.element,
   error: PropTypes.string,
 }
 
@@ -73,6 +93,7 @@ Input.defaultProps = {
   className: '',
   value: '',
   onChange: () => {},
+  icon: null,
   error: '',
 }
 
