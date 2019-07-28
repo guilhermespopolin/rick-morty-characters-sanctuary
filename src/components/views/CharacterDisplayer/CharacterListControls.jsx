@@ -6,7 +6,10 @@ import { MdNavigateBefore as PreviousIcon, MdNavigateNext as NextIcon } from 're
 import Button from 'components/ui/Button'
 
 const StyledCharacterListControls = styled.footer`
-  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 `
 
 function CharacterListControls({
