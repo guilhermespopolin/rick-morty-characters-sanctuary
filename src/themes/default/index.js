@@ -19,6 +19,7 @@ export default {
 
     paperYellow: '#fafae3',
     darkBlue: '#252c3a',
+    error: '#d30d0d',
   },
   fontSize: {
     small: '0.9rem',
