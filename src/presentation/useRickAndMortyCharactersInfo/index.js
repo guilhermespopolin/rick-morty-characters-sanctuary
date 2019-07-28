@@ -1,5 +1,7 @@
 import { useReducer, useEffect } from 'react'
 
+import guaranteeArray from 'helpers/guaranteeArray'
+
 const STATUS_OK = 200
 const STATUS_NOT_FOUND = 404
 const SET = 'SET'
@@ -7,14 +9,65 @@ const LOADING = 'LOADING'
 const DONE = 'DONE'
 const ERROR = 'ERROR'
 
-async function getData(url, dispatch) {
+function normalizeCharacter(character = {}) {
+  const interestedInAttributes = [
+    'id',
+    'name',
+    'image',
+    'status',
+    'species',
+    'origin',
+  ]
+  const grouppedAttributes = ['status', 'species', 'origin']
+  const interestedInAttributesDataSelectorMap = interestedInAttributes
+    .reduce((resultantMap, attribute) => {
+      if (attribute === 'origin') {
+        return {
+          ...resultantMap,
+          [attribute]: srcObject => srcObject[attribute].name,
+        }
+      }
+
+      return {
+        ...resultantMap,
+        [attribute]: srcObject => srcObject[attribute],
+      }
+    }, {})
+
+  return Object.keys(interestedInAttributesDataSelectorMap)
+    .reduce((normalizedCharacter, attribute) => {
+      if (grouppedAttributes.includes(attribute)) {
+        return {
+          ...normalizedCharacter,
+          attributes: [
+            ...normalizedCharacter.attributes,
+            {
+              attribute,
+              value: interestedInAttributesDataSelectorMap[attribute](character),
+            },
+          ],
+        }
+      }
+
+      return {
+        ...normalizedCharacter,
+        [attribute]: interestedInAttributesDataSelectorMap[attribute](character),
+      }
+    }, { attributes: [] })
+}
+
+function normalizeCharacterList(characters = []) {
+  return characters.map(normalizeCharacter)
+}
+
+async function fetchData(url, dispatch, normalizeResponse = response => response) {
   function mapPayloadFromResponse(response) {
     return {
       meta: {
-        prev: response.info.prev,
-        next: response.info.next,
+        prev: response.info ? response.info.prev : '',
+        next: response.info ? response.info.next : '',
       },
-      data: response.results,
+      data: guaranteeArray(normalizeResponse(response.results || response)),
     }
   }
 
@@ -52,7 +105,7 @@ const initialState = {
   },
   characters: [],
 }
-function reducer(state, { type, payload }) {
+function useRickAndMortyCharactersInfoReducer(state, { type, payload }) {
   switch (type) {
     case SET:
       return {
@@ -91,17 +144,17 @@ function reducer(state, { type, payload }) {
   }
 }
 
-function useRickAndMortyCharacterInfo(characterName = '') {
-  const [state, dispatch] = useReducer(reducer, initialState)
+function useRickAndMortyCharactersInfo(characterName = '') {
+  const [state, dispatch] = useReducer(useRickAndMortyCharactersInfoReducer, initialState)
 
   function getPreviousPage() {
     if (state.meta.prev) {
-      getData(state.meta.prev, dispatch)
+      fetchData(state.meta.prev, dispatch, normalizeCharacterList)
     }
   }
 
   function getNextPage() {
-    getData(state.meta.next, dispatch)
+    fetchData(state.meta.next, dispatch, normalizeCharacterList)
   }
 
   useEffect(() => {
@@ -110,7 +163,7 @@ function useRickAndMortyCharacterInfo(characterName = '') {
       const parsedURL = URL.replace('{characterName}', characterName ? `?name=${characterName}` : '')
       const encodedURL = encodeURI(parsedURL)
 
-      getData(encodedURL, dispatch)
+      fetchData(encodedURL, dispatch, normalizeCharacterList)
     }
 
     gethRickAndMortyCharacters()
@@ -133,4 +186,4 @@ function useRickAndMortyCharacterInfo(characterName = '') {
   }
 }
 
-export default useRickAndMortyCharacterInfo
+export default useRickAndMortyCharactersInfo
