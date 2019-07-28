@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const CharacterCardInfoSectionItem = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: 0.7rem 0;
 
   &:not(:last-child) {
