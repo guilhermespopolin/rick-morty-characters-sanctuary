@@ -16,7 +16,7 @@ const StyledCharacterCard = styled.div`
 
 function CharacterCard({ character, ...others }) {
   return (
-    <StyledCharacterCard {...others}>
+    <StyledCharacterCard data-testid={`card-${character.id}`} {...others}>
       <CharacterCardFigure
         imageSrc={character.image}
         caption={character.name}
