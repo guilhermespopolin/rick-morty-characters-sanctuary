@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import useDebounce from 'presentation/useDebounce'
 import useRickAndMortyCharactersInfo from 'presentation/useRickAndMortyCharactersInfo'
 
 import CharacterListFilter from './CharacterListFilter'
 import CharacterCardList from './CharacterCardList'
 import CharacterListControls from './CharacterListControls'
-
-const DEBOUNCE_DELAY = 600
 
 const StyledCharacterDisplayer = styled.section`
   display: inline-flex;
@@ -17,21 +14,21 @@ const StyledCharacterDisplayer = styled.section`
 `
 
 function CharacterDisplayer({ className }) {
-  const [characterName, setCharacterName] = useState('')
-  const debouncedCharacterName = useDebounce(characterName, DEBOUNCE_DELAY)
-  const { data, api } = useRickAndMortyCharactersInfo(debouncedCharacterName)
+  const [searchTerm, setSearchTerm] = useState('')
+  const { data, api } = useRickAndMortyCharactersInfo(searchTerm)
 
   return (
     <StyledCharacterDisplayer className={className}>
       <CharacterListFilter
-        value={characterName}
-        onChange={e => setCharacterName(e.target.value)}
+        onSetSearchTerm={setSearchTerm}
+        disableSearch={data.meta.isLoading}
         error={data.meta.error}
       />
-      <CharacterCardList characters={data.characters} />
+      <CharacterCardList characters={data.characters} isLoading={data.meta.isLoading} />
       <CharacterListControls
         hasPrevious={data.meta.hasPrevious}
         hasNext={data.meta.hasNext}
+        disableControls={data.meta.isLoading}
         onPreviousPage={() => api.getPreviousPage()}
         onNextPage={() => api.getNextPage()}
       />
