@@ -90,7 +90,8 @@ async function fetchData(url, dispatch, normalizeResponse = response => response
         break
     }
   } catch (err) {
-    dispatch({ type: ERROR, payload: err })
+    // eslint-disable-next-line no-console
+    console.error(err)
   } finally {
     dispatch({ type: DONE })
   }
