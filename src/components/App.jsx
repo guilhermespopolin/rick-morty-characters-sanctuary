@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     position: relative;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Oswald', sans-serif;
     color: ${({ theme }) => theme.colors.darkGray};
     background-color: ${({ theme }) => theme.colors.darkBlue};
   }
