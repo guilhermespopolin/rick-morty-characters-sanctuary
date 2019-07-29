@@ -6,6 +6,8 @@ const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
   padding: 0.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary0};
   border: none;
