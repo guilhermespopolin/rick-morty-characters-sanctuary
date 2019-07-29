@@ -1,11 +1,11 @@
 {
-  "name": "rick-morty-episodes-sanctuary",
+  "name": "rick-morty-characters-sanctuary",
   "version": "0.0.0-development",
   "author": "Guilherme Popolin",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/guilhermespopolin/rick-morty-episodes-sanctuary"
+    "url": "https://github.com/guilhermespopolin/rick-morty-characters-sanctuary"
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --config config/webpack --env development",
