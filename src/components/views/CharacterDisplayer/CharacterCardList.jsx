@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import Loading from 'components/ui/Loading'
 import CharacterCard from 'components/views/CharacterCard'
 
 const StyledCharacterCardList = styled.div`
@@ -12,10 +13,14 @@ const StyledCharacterCardList = styled.div`
   padding: 1.2rem 1rem;
 `
 
-function CharacterCardList({ characters }) {
-  const content = characters.map(character => (
-    <CharacterCard key={character.id} character={character} />
-  ))
+function CharacterCardList({ characters, isLoading }) {
+  const content = isLoading ? (
+    <Loading />
+  ) : (
+    characters.map(character => (
+      <CharacterCard key={character.id} character={character} />
+    ))
+  )
 
   return (
     <StyledCharacterCardList>
@@ -35,10 +40,12 @@ CharacterCardList.propTypes = {
       value: PropTypes.string,
     })),
   })),
+  isLoading: PropTypes.bool,
 }
 
 CharacterCardList.defaultProps = {
   characters: [],
+  isLoading: false,
 }
 
 export default CharacterCardList

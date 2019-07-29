@@ -17,11 +17,12 @@ function CharacterListControls({
   onPreviousPage,
   hasNext,
   onNextPage,
+  disableControls,
 }) {
   return (
     <StyledCharacterListControls>
       <Button
-        disabled={!hasPrevious}
+        disabled={disableControls || !hasPrevious}
         icon={<PreviousIcon size={16} />}
         onClick={onPreviousPage}
       >
@@ -29,7 +30,7 @@ function CharacterListControls({
       </Button>
       <Button
         style={{ marginLeft: '1rem' }}
-        disabled={!hasNext}
+        disabled={disableControls || !hasNext}
         icon={<NextIcon size={16} />}
         iconRight
         onClick={onNextPage}
@@ -45,6 +46,7 @@ CharacterListControls.propTypes = {
   onPreviousPage: PropTypes.func,
   hasNext: PropTypes.bool,
   onNextPage: PropTypes.func,
+  disableControls: PropTypes.bool,
 }
 
 CharacterListControls.defaultProps = {
@@ -52,6 +54,7 @@ CharacterListControls.defaultProps = {
   onPreviousPage: () => {},
   hasNext: false,
   onNextPage: () => {},
+  disableControls: false,
 }
 
 export default CharacterListControls
