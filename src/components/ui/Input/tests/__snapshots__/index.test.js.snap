@@ -1,21 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Input /> should render properly 1`] = `
+exports[`<Input /> When there is some error should render properly 1`] = `
 .c0 {
   outline: none;
-  padding: 0.5rem 0.3rem;
   border: none;
-  border: 1px solid #e6e9f3;
-  border-radius: 3px;
+  padding: 0.5rem 0.3rem;
+  background-color: transparent;
+  border: 2px solid #b95900;
+  font-family: 'Oswald',sans-serif;
+  font-size: 1.1rem;
   color: var(--darkGray);
+  border: 2px solid #d30d0d;
 }
 
-.c0:focus {
-  border: 1px solid #0a30ad;
+.c0:focus,
+.c0:active {
+  border: 2px solid #ff7a00;
+}
+
+.c0:focus,
+.c0:active {
+  border: 2px solid #d30d0d;
 }
 
 <input
   class="c0"
   placeholder="Enter some text"
+  value=""
+/>
+`;
+
+exports[`<Input /> should render properly 1`] = `
+.c0 {
+  outline: none;
+  border: none;
+  padding: 0.5rem 0.3rem;
+  background-color: transparent;
+  border: 2px solid #b95900;
+  font-family: 'Oswald',sans-serif;
+  font-size: 1.1rem;
+  color: var(--darkGray);
+}
+
+.c0:focus,
+.c0:active {
+  border: 2px solid #ff7a00;
+}
+
+<input
+  class="c0"
+  placeholder="Enter some text"
+  value=""
 />
 `;

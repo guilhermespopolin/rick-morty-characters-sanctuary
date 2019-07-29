@@ -2,18 +2,36 @@
 
 exports[`<Button /> should render properly 1`] = `
 .c0 {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0.5rem;
+  font-family: 'Oswald',sans-serif;
+  font-size: 1.1rem;
   color: #fefefe;
-  background-color: #0a30ad;
+  background-color: #00afc8;
   border: none;
   outline: none;
   border-radius: 3px;
+  min-width: 60px;
 }
 
-.c0:hover {
+.c0:hover:enabled {
   cursor: pointer;
-  background-color: #1542d4;
+  background-color: #10defb;
+}
+
+.c0:disabled {
+  opacity: 0.4;
+}
+
+.c0:disabled:hover {
+  cursor: not-allowed;
 }
 
 <button
