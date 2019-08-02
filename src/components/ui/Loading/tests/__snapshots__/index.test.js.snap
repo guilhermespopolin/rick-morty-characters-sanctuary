@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loading /> should render properly 1`] = `
+.c0 {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background-color: #b95900;
+}
+
+.c0[data-id="1"] {
+  -webkit-animation: ioOCvU 0.6s 0.1s linear infinite;
+  animation: ioOCvU 0.6s 0.1s linear infinite;
+}
+
+.c0[data-id="2"] {
+  -webkit-animation: ioOCvU 0.6s 0.2s linear infinite;
+  animation: ioOCvU 0.6s 0.2s linear infinite;
+}
+
+.c0[data-id="3"] {
+  -webkit-animation: ioOCvU 0.6s 0.3s linear infinite;
+  animation: ioOCvU 0.6s 0.3s linear infinite;
+}
+
+.c0:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+<div
+  class=""
+  data-testid="loading"
+>
+  <div
+    class="c0"
+    data-id="1"
+  />
+  <div
+    class="c0"
+    data-id="2"
+  />
+  <div
+    class="c0"
+    data-id="3"
+  />
+</div>
+`;

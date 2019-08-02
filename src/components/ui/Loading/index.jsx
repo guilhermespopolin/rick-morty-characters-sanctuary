@@ -43,7 +43,7 @@ const Ball = styled.div`
 
 function Loading() {
   return (
-    <StyledLoading>
+    <StyledLoading data-testid="loading">
       <Ball data-id={1} />
       <Ball data-id={2} />
       <Ball data-id={3} />
