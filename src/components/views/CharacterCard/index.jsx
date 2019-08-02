@@ -23,7 +23,6 @@ function CharacterCard({ character, ...others }) {
     'species',
     'status',
     'origin',
-    'location',
   ])
 
   return (
@@ -45,7 +44,6 @@ CharacterCard.propTypes = {
     species: PropTypes.string,
     status: PropTypes.string,
     origin: PropTypes.string,
-    location: PropTypes.string,
   }),
 }
 

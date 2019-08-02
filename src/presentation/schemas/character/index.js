@@ -11,7 +11,6 @@ function makeCharacterSchemaProcessStrategy() {
     { key: 'species' },
     { key: 'status' },
     { key: 'origin', path: 'origin.name' },
-    { key: 'location', path: 'location.name' },
   ]
 
   return value => buildByPicking(value, interestedInFields)
