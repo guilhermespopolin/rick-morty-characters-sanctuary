@@ -60,11 +60,10 @@ describe('Application', () => {
       expect(getByText('Earth')).toBeDefined()
     })
 
-    it.only('should render a disabled [Previous] button', async () => {
-      const { getByText, debug } = renderedComponent
+    it('should render a disabled [Previous] button', async () => {
+      const { getByText } = renderedComponent
 
       await waitForElement(() => getByText('Previous'))
-      debug()
 
       expect(getByText('Previous').disabled).toBeTruthy()
     })
@@ -195,7 +194,7 @@ describe('Application', () => {
         },
       },
       {
-        matcher: 'https://rickandmortyapi.com/api/character?name=Smith',
+        matcher: 'https://rickandmortyapi.com/api/character/?name=Smith',
         method: 'GET',
         response: {
           info: {
@@ -239,7 +238,7 @@ describe('Application', () => {
       fireEvent.change(charactersListFilter, { target: { value: 'Smith' } })
       expect(charactersListFilter.value).toBe('Smith')
       fireEvent.click(triggerSearchButton)
-      expect(fetchMock.called('https://rickandmortyapi.com/api/character?name=Smith')).toBeTruthy()
+      expect(fetchMock.called('https://rickandmortyapi.com/api/character/?name=Smith')).toBeTruthy()
 
       await waitForElement(() => getByTestId('card-2'))
       await waitForElement(() => getByTestId('card-3'))
