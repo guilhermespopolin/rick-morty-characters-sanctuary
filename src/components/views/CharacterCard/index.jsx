@@ -14,15 +14,25 @@ const StyledCharacterCard = styled.div`
   border-radius: 4px;
   box-shadow: 0 0 4px 2px rgba(236, 113, 0, 0.4);
 `
+function generateAttributes(character = {}, interestedInFields = []) {
+  return interestedInFields.map(attribute => ({ attribute, value: character[attribute] }))
+}
 
 function CharacterCard({ character, ...others }) {
+  const attributes = generateAttributes(character, [
+    'species',
+    'status',
+    'origin',
+    'location',
+  ])
+
   return (
     <StyledCharacterCard data-testid={`card-${character.id}`} {...others}>
       <CharacterCardFigure
         imageSrc={character.image}
         caption={character.name}
       />
-      <CharacterCardInfoSection attributes={character.attributes} />
+      <CharacterCardInfoSection attributes={attributes} />
     </StyledCharacterCard>
   )
 }
@@ -32,10 +42,10 @@ CharacterCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     image: PropTypes.string,
-    attributes: PropTypes.arrayOf(PropTypes.shape({
-      attribute: PropTypes.string,
-      value: PropTypes.string,
-    })),
+    species: PropTypes.string,
+    status: PropTypes.string,
+    origin: PropTypes.string,
+    location: PropTypes.string,
   }),
 }
 
