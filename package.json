@@ -16,6 +16,7 @@
     "mock-server": "json-server --watch src/__mocks__/db.js --port 3042"
   },
   "dependencies": {
+    "normalizr": "3.4.0",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
