@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitForElement, fireEvent } from 'helpers/tests'
+import { render, waitForElement, fireEvent } from '__tests__/utils/rtlWrapper'
 
 import { FetchMock, fetchMock } from '@react-mock/fetch'
 import HomePage from 'components/pages/Home'
@@ -60,10 +60,11 @@ describe('Application', () => {
       expect(getByText('Earth')).toBeDefined()
     })
 
-    it('should render a disabled [Previous] button', async () => {
-      const { getByText } = renderedComponent
+    it.only('should render a disabled [Previous] button', async () => {
+      const { getByText, debug } = renderedComponent
 
       await waitForElement(() => getByText('Previous'))
+      debug()
 
       expect(getByText('Previous').disabled).toBeTruthy()
     })
