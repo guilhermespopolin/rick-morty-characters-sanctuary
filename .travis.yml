@@ -3,19 +3,20 @@ language: node_js
 node_js: 8
 cache:
   directories:
-    - node_modules
+  - node_modules
 branches:
   only:
-    - master
+  - master
 notifications:
   email: false
 script:
-  - npm run test
+- npm run test
 after_success:
-  - npx semantic-release
+- npx semantic-release
 deploy:
   provider: heroku
-  api_key: "RX+vJ3oPhWd9xplqADdnetPJdkviAWY30wmZ54FshDshJpgMoW4/gzcILedn7v4DX5W1+3aO9xK3Ff+o8nNYf2dy8s9pv3IoT9S5QP7n4QrB/Kd54FgqwzFjMGFjM7YAtmFqxDlIjZdSvaOB06zpAIEuoK2AnGkeg4ERVYBYbxhlTi8YZd7P/7zPYIO37eqfKSsv/t1/iptE3Use+o0OSoGaljeVa+Ut1/dENHEzy+uvA4GtEttUJwcg6YtGQBwveglEbpnmO21fmJ5dPg5zCCyXliAkRCeVN6/NYluOJalSQMG00sjXFSt76cZAGCP5kFyig7xwF/ybhu3xP9ceQqKt5/Xub3ej31B6dV9SbZvugpUFAP8jAT08BHB0js+zffnQIE3ixM9ifv4eXJOUXb+DpMYHoGwhH8C6nF4nHKREufEkmEAk6S5iQqlHkjleYFkCESv+Frx2bCe0zIe7q6JUFAFQFsrKrZaSnDWoKuJbJ6XA2YEbTGWU8/Gv1MGECSl9GlgXvir+mMD71DE+EAUGtd+uBkISDzYfYxzMJzfu67j4EL1bTfkEvfIS92PupF2tmQQSgEL05t6SHPT+34tzksds5e44PmwX2gtkKphG8kCPkqc2zIsL9lxVNWt4gMXU3KA+rXqJIWm6PuVHPjUBYFxipY2m0DAIW+o19Fg="
+  api_key:
+    secure: SRiHeUsFL5oh69+Vw6lN1TlxB0eQWWIl0XzhLd0oOTUM1NxuU9Mq9PXalNNt69b+g6cwrb2JkMjkh1MhsgkC3T2QhU4ax/H9buDDsG2ab+vLX7H2ZXtppU3xzqAFG+y/Tw++TbrGrEGsiXoYIb3GC7l1nthxw3bhbgQ7HP48M9sVaflm/wSsARvigrqVuSdbg1u1SQLFuEc8RRSXYTL92A8gAqKRIeBZRBoYYuJO0gIeNV6pjCyCtFIAgrJpPRRD5RKeJOfw4U6C4bVzW1U17mslqSbNFPhGDXN0qOf/zr5SMQ8fJyl9AGuE+JT767QkFLDXdKoR0rNVOO1cySlihBGGBw7rZSVSBLrpDtS9ta1Kf+7GvsJMwYeppfGQJcLzO47nR7Owz6vwoB9GZ8Jr/DVru+r8CS+DehLpWEGV76DmkVL8hI3y4bcM1p0/bQOXrmr+0i7wRy0WmGLf2MRUiQY59HvfOaKArrXqwCQl+rNdPIfqBZ3H0+WDKcel5WJkWt6cZaGr04v9IcrjN0CC0YW89QSzUZJx/apyNyslnp2iT71WIyPsZwxMu5MBeq4sjqAaL5gUJzDxooQmynG71bAz51IMmoXMUhRfWk2+I9zbA1h0tg61/PejX2DFZuNaUtFGVHnpoojZA5LNr8ryNef6IHk374ZYC6ELgicpSiE=
   app: rick-morty-characters
   on:
     repo: guilhermespopolin/rick-morty-characters-sanctuary
