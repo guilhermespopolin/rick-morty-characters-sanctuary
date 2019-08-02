@@ -8,6 +8,7 @@
     "url": "https://github.com/guilhermespopolin/rick-morty-characters-sanctuary"
   },
   "scripts": {
+    "start": "node src/server.js",
     "dev": "webpack-dev-server --mode development --config config/webpack --env development",
     "build": "webpack --config config/webpack --env production",
     "test": "cross-env BABEL_ENV=test NODE_ENV=test jest",
@@ -16,7 +17,9 @@
     "mock-server": "json-server --watch src/__mocks__/db.js --port 3042"
   },
   "dependencies": {
+    "express": "4.17.1",
     "normalizr": "3.4.0",
+    "path": "0.12.7",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
@@ -60,7 +63,7 @@
     "lint-staged": "8.1.1",
     "semantic-release": "15.13.3",
     "style-loader": "0.23.1",
-    "uglifyjs-webpack-plugin": "2.1.1",
+    "terser-webpack-plugin": "1.4.1",
     "webpack": "4.29.0",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14",
