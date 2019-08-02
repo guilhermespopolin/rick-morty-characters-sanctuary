@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'helpers/tests'
+import { render } from '__tests__/utils/rtlWrapper'
 
 import Button from '..'
 

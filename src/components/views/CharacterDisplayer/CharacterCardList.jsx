@@ -6,9 +6,11 @@ import Loading from 'components/ui/Loading'
 import CharacterCard from 'components/views/CharacterCard'
 
 const StyledCharacterCardList = styled.div`
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1.3rem;
+  align-items: center;
   justify-items: center;
   padding: 1.2rem 1rem;
 `

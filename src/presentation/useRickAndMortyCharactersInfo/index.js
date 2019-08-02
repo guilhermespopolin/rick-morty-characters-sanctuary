@@ -1,101 +1,14 @@
-import { useReducer, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
+import { normalize } from 'normalizr'
 
-import guaranteeArray from 'helpers/guaranteeArray'
+import charactersSchema from 'presentation/schemas/characters'
 
-const STATUS_OK = 200
-const STATUS_NOT_FOUND = 404
-const SET = 'SET'
+const ERROR = 'ERROR'
 const LOADING = 'LOADING'
 const DONE = 'DONE'
-const ERROR = 'ERROR'
-
-function normalizeCharacter(character = {}) {
-  const interestedInAttributes = [
-    'id',
-    'name',
-    'image',
-    'status',
-    'species',
-    'origin',
-  ]
-  const grouppedAttributes = ['status', 'species', 'origin']
-  const interestedInAttributesDataSelectorMap = interestedInAttributes
-    .reduce((resultantMap, attribute) => {
-      if (attribute === 'origin') {
-        return {
-          ...resultantMap,
-          [attribute]: srcObject => srcObject[attribute].name,
-        }
-      }
-
-      return {
-        ...resultantMap,
-        [attribute]: srcObject => srcObject[attribute],
-      }
-    }, {})
-
-  return Object.keys(interestedInAttributesDataSelectorMap)
-    .reduce((normalizedCharacter, attribute) => {
-      if (grouppedAttributes.includes(attribute)) {
-        return {
-          ...normalizedCharacter,
-          attributes: [
-            ...normalizedCharacter.attributes,
-            {
-              attribute,
-              value: interestedInAttributesDataSelectorMap[attribute](character),
-            },
-          ],
-        }
-      }
-
-      return {
-        ...normalizedCharacter,
-        [attribute]: interestedInAttributesDataSelectorMap[attribute](character),
-      }
-    }, { attributes: [] })
-}
-
-function normalizeCharacterList(characters = []) {
-  return characters.map(normalizeCharacter)
-}
-
-async function fetchData(url, dispatch, normalizeResponse = response => response) {
-  function mapPayloadFromResponse(response) {
-    return {
-      meta: {
-        prev: response.info ? response.info.prev : '',
-        next: response.info ? response.info.next : '',
-      },
-      data: guaranteeArray(normalizeResponse(response.results || response)),
-    }
-  }
-
-  try {
-    // reset error state
-    dispatch({ type: ERROR, payload: null })
-    dispatch({ type: LOADING })
-
-    const response = await fetch(url)
-    const jsonReponse = await response.json()
-
-    switch (response.status) {
-      case STATUS_OK:
-        dispatch({ type: SET, payload: mapPayloadFromResponse(jsonReponse) })
-        break
-      case STATUS_NOT_FOUND:
-        dispatch({ type: ERROR, payload: 'No entry was founded with this search term' })
-        break
-      default:
-        break
-    }
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err)
-  } finally {
-    dispatch({ type: DONE })
-  }
-}
+const SET = 'SET'
+const STATUS_OK = 200
+const STATUS_NOT_FOUND = 404
 
 const initialState = {
   meta: {
@@ -104,71 +17,99 @@ const initialState = {
     next: '',
     prev: '',
   },
-  characters: [],
+  data: { characters: {} },
 }
-function useRickAndMortyCharactersInfoReducer(state, { type, payload }) {
+
+function normalizeCharacters(charactersResponse) {
+  const { info, results: characters } = charactersResponse
+
+  return {
+    meta: {
+      prev: info ? info.prev : '',
+      next: info ? info.next : '',
+    },
+    data: normalize(characters, charactersSchema).entities,
+  }
+}
+
+function useRickAndMortyDataReducer(state, action) {
+  const { type, payload } = action
+
   switch (type) {
-    case SET:
-      return {
-        meta: {
-          ...state.meta,
-          ...payload.meta,
-        },
-        characters: payload.data,
-      }
     case LOADING:
       return {
         ...state,
-        meta: {
-          ...state.meta,
-          isLoading: true,
-        },
-      }
-    case DONE:
-      return {
-        ...state,
-        meta: {
-          ...state.meta,
-          isLoading: false,
-        },
+        meta: { ...state.meta, isLoading: true },
       }
     case ERROR:
       return {
         ...state,
-        meta: {
-          ...state.meta,
-          error: payload,
-        },
+        meta: { ...state.meta, error: payload },
+      }
+    case DONE:
+      return {
+        ...state,
+        meta: { ...state.meta, isLoading: false },
+      }
+    case SET:
+      return {
+        ...state,
+        meta: { ...state.meta, ...payload.meta },
+        data: payload.data,
       }
     default:
       return state
   }
 }
 
-function useRickAndMortyCharactersInfo(characterName = '') {
-  const [state, dispatch] = useReducer(useRickAndMortyCharactersInfoReducer, initialState)
+async function fetchData(url, dispatch, responseNormalizer = response => response) {
+  try {
+    dispatch({ type: ERROR, payload: null })
+    dispatch({ type: LOADING })
+
+    const reponse = await fetch(url)
+    if (reponse.status === STATUS_OK) {
+      const reponseJson = await reponse.json()
+
+      dispatch({
+        type: SET,
+        payload: responseNormalizer(reponseJson),
+      })
+    } else if (reponse.status === STATUS_NOT_FOUND) {
+      dispatch({ type: ERROR, payload: 'No entry was found based on this search tearm' })
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message)
+  } finally {
+    dispatch({ type: DONE })
+  }
+}
+
+function useRickAndMortyData(searchTerm = '') {
+  const [state, dispatch] = useReducer(useRickAndMortyDataReducer, initialState)
 
   function getPreviousPage() {
     if (state.meta.prev) {
-      fetchData(state.meta.prev, dispatch, normalizeCharacterList)
+      fetchData(state.meta.prev, dispatch, normalizeCharacters)
     }
   }
 
   function getNextPage() {
-    fetchData(state.meta.next, dispatch, normalizeCharacterList)
+    fetchData(state.meta.next, dispatch, normalizeCharacters)
   }
 
   useEffect(() => {
-    function gethRickAndMortyCharacters() {
-      const URL = 'https://rickandmortyapi.com/api/character{characterName}'
-      const parsedURL = URL.replace('{characterName}', characterName ? `?name=${characterName}` : '')
-      const encodedURL = encodeURI(parsedURL)
+    function fetchRickAndMortyData() {
+      const url = 'https://rickandmortyapi.com/api/character'
+      const parsedUrl = url.concat(searchTerm ? `/?name=${searchTerm}` : '')
+      const encodedUrl = encodeURI(parsedUrl)
 
-      fetchData(encodedURL, dispatch, normalizeCharacterList)
+      fetchData(encodedUrl, dispatch, normalizeCharacters)
     }
 
-    gethRickAndMortyCharacters()
-  }, [characterName])
+    fetchRickAndMortyData(searchTerm, dispatch)
+  }, [searchTerm])
 
   return {
     data: {
@@ -178,7 +119,7 @@ function useRickAndMortyCharactersInfo(characterName = '') {
         hasPrevious: !!state.meta.prev,
         hasNext: !!state.meta.next,
       },
-      characters: state.characters,
+      characters: state.data.characters,
     },
     api: {
       getPreviousPage,
@@ -187,4 +128,4 @@ function useRickAndMortyCharactersInfo(characterName = '') {
   }
 }
 
-export default useRickAndMortyCharactersInfo
+export default useRickAndMortyData

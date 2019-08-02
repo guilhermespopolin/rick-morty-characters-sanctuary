@@ -8,7 +8,7 @@ import rickImage from 'assets/images/rick.png'
 
 const StyledHome = styled.main`
   height: 100vh;
-  padding: 1rem 1.2rem;
+  padding: 0 1.2rem;
   display: grid;
   grid-template-columns:
     minmax(80px, 120px)

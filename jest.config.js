@@ -21,6 +21,7 @@ module.exports = {
   modulePaths: ['<rootDir>', '<rootDir>/src'],
   testPathIgnorePatterns: [
     '/node_modules/',
+    '<rootDir>/src/__tests__/utils',
     '<rootDir>/src/helpers/',
     '<rootDir>/src/themes/',
   ],

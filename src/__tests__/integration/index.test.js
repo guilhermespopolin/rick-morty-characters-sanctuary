@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitForElement, fireEvent } from 'helpers/tests'
+import { render, waitForElement, fireEvent } from '__tests__/utils/rtlWrapper'
 
 import { FetchMock, fetchMock } from '@react-mock/fetch'
 import HomePage from 'components/pages/Home'
@@ -194,7 +194,7 @@ describe('Application', () => {
         },
       },
       {
-        matcher: 'https://rickandmortyapi.com/api/character?name=Smith',
+        matcher: 'https://rickandmortyapi.com/api/character/?name=Smith',
         method: 'GET',
         response: {
           info: {
@@ -238,7 +238,7 @@ describe('Application', () => {
       fireEvent.change(charactersListFilter, { target: { value: 'Smith' } })
       expect(charactersListFilter.value).toBe('Smith')
       fireEvent.click(triggerSearchButton)
-      expect(fetchMock.called('https://rickandmortyapi.com/api/character?name=Smith')).toBeTruthy()
+      expect(fetchMock.called('https://rickandmortyapi.com/api/character/?name=Smith')).toBeTruthy()
 
       await waitForElement(() => getByTestId('card-2'))
       await waitForElement(() => getByTestId('card-3'))

@@ -13,3 +13,9 @@ script:
   - npm run test
 after_success:
   - npx semantic-release
+deploy:
+  provider: heroku
+  api_key: "RX+vJ3oPhWd9xplqADdnetPJdkviAWY30wmZ54FshDshJpgMoW4/gzcILedn7v4DX5W1+3aO9xK3Ff+o8nNYf2dy8s9pv3IoT9S5QP7n4QrB/Kd54FgqwzFjMGFjM7YAtmFqxDlIjZdSvaOB06zpAIEuoK2AnGkeg4ERVYBYbxhlTi8YZd7P/7zPYIO37eqfKSsv/t1/iptE3Use+o0OSoGaljeVa+Ut1/dENHEzy+uvA4GtEttUJwcg6YtGQBwveglEbpnmO21fmJ5dPg5zCCyXliAkRCeVN6/NYluOJalSQMG00sjXFSt76cZAGCP5kFyig7xwF/ybhu3xP9ceQqKt5/Xub3ej31B6dV9SbZvugpUFAP8jAT08BHB0js+zffnQIE3ixM9ifv4eXJOUXb+DpMYHoGwhH8C6nF4nHKREufEkmEAk6S5iQqlHkjleYFkCESv+Frx2bCe0zIe7q6JUFAFQFsrKrZaSnDWoKuJbJ6XA2YEbTGWU8/Gv1MGECSl9GlgXvir+mMD71DE+EAUGtd+uBkISDzYfYxzMJzfu67j4EL1bTfkEvfIS92PupF2tmQQSgEL05t6SHPT+34tzksds5e44PmwX2gtkKphG8kCPkqc2zIsL9lxVNWt4gMXU3KA+rXqJIWm6PuVHPjUBYFxipY2m0DAIW+o19Fg="
+  app: rick-morty-characters
+  on:
+    repo: guilhermespopolin/rick-morty-characters-sanctuary

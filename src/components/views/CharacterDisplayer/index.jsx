@@ -17,6 +17,15 @@ function CharacterDisplayer({ className }) {
   const [searchTerm, setSearchTerm] = useState('')
   const { data, api } = useRickAndMortyCharactersInfo(searchTerm)
 
+  const controls = !data.meta.isLoading ? (
+    <CharacterListControls
+      hasPrevious={data.meta.hasPrevious}
+      hasNext={data.meta.hasNext}
+      onPreviousPage={() => api.getPreviousPage()}
+      onNextPage={() => api.getNextPage()}
+    />
+  ) : null
+
   return (
     <StyledCharacterDisplayer className={className}>
       <CharacterListFilter
@@ -24,14 +33,11 @@ function CharacterDisplayer({ className }) {
         disableSearch={data.meta.isLoading}
         error={data.meta.error}
       />
-      <CharacterCardList characters={data.characters} isLoading={data.meta.isLoading} />
-      <CharacterListControls
-        hasPrevious={data.meta.hasPrevious}
-        hasNext={data.meta.hasNext}
-        disableControls={data.meta.isLoading}
-        onPreviousPage={() => api.getPreviousPage()}
-        onNextPage={() => api.getNextPage()}
+      <CharacterCardList
+        characters={Object.values(data.characters)}
+        isLoading={data.meta.isLoading}
       />
+      {controls}
     </StyledCharacterDisplayer>
   )
 }
