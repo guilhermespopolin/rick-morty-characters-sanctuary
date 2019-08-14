@@ -8,6 +8,7 @@ import Button from 'components/ui/Button'
 
 const StyledCharacterListFilter = styled.form`
   display: flex;
+  flex-flow: row wrap;
   align-items: baseline;
   justify-content: center;
 `
@@ -29,9 +30,9 @@ function CharacterListFilter({ onSetSearchTerm, disableSearch, error }) {
         value={value}
         onChange={e => setValue(e.target.value)}
         error={error}
+
       />
       <Button
-        style={{ marginLeft: '2rem' }}
         icon={<SearchIcon size={24} />}
         iconRight
         type="submit"

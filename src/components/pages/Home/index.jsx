@@ -7,14 +7,11 @@ import charactersSanctuaryHeader from 'assets/images/characters-sanctuary-header
 import rickImage from 'assets/images/rick.png'
 
 const StyledHome = styled.main`
-  height: 100vh;
+  min-height: 100vh;
   padding: 0 1.2rem;
   display: grid;
-  grid-template-columns:
-    minmax(80px, 120px)
-    minmax(480px, 1000px)
-    minmax(80px, 120px);
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(360px, 1200px);
+  grid-template-rows: auto 1fr minmax(10%, 20%);
   grid-gap: 1.2rem;
   justify-content: center;
 `
@@ -22,16 +19,15 @@ const StyledHome = styled.main`
 const PositionatedHeader = styled.img`
   grid-column: 2 / -2;
   height: auto;
-  max-width: 90%;
+  max-width: 80%;
   justify-self: center;
-
 `
 
 const PositionatedFooterImage = styled.img`
-  grid-column: -2;
   grid-row: -1;
-  height: auto;
-  width: 100%;
+  justify-self: end;
+  height: 100%;
+  width: 30%;
 `
 
 const PositionatedCharacterDisplayer = styled(CharacterDisplayer)`
@@ -46,10 +42,7 @@ function Home() {
         alt="Rick & Morty - characters sanctuary"
       />
       <PositionatedCharacterDisplayer />
-      <PositionatedFooterImage
-        src={rickImage}
-        alt="Rick"
-      />
+      <PositionatedFooterImage src={rickImage} alt="Rick" />
     </StyledHome>
   )
 }

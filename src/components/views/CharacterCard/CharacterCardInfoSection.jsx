@@ -31,7 +31,6 @@ const CharacterCardInfoSectionItemValue = styled.span`
 
 const StyledCharacterCardInfoSection = styled.section`
   padding: 0 0.7rem;
-  overflow-y: auto;
 `
 
 function CharacterCardInfoSection({ attributes }) {
