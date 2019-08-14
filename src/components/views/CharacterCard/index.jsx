@@ -10,9 +10,8 @@ const StyledCharacterCard = styled.div`
   flex-flow: column nowrap;
   width: 250px;
   height: 452px;
-  border: 1px solid var(--white);
+  border: 1px solid ${({ theme }) => theme.colors.complement0};
   border-radius: 4px;
-  box-shadow: 0 0 4px 2px rgba(236, 113, 0, 0.4);
 `
 function generateAttributes(character = {}, interestedInFields = []) {
   return interestedInFields.map(attribute => ({ attribute, value: character[attribute] }))
