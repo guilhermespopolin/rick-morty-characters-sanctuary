@@ -17,7 +17,7 @@
     "mock-server": "json-server --watch src/__mocks__/db.js --port 3042"
   },
   "dependencies": {
-    "express": "4.17.1",
+    "express": "4.17.3",
     "normalizr": "3.4.0",
     "path": "0.12.7",
     "prop-types": "15.7.2",
